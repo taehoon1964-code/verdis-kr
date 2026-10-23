@@ -1,1 +1,31 @@
-
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>업무일지 · VERDIS Platform</title>
+  <!-- 업무일지는 구글 로그인(IAP)을 거치므로 iframe 에 넣을 수 없음 → 스플래시 후 앱 주소로 이동 -->
+  <style>
+    body{margin:0;height:100vh;background:#fff;font-family:'Segoe UI','Noto Sans KR',sans-serif;overflow:hidden}
+    #splash{position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:18px;
+      background:#fff;opacity:0;animation:fadeIn .6s ease forwards}
+    #splash img{max-width:80%;max-height:70%;object-fit:contain}
+    #splash a{font-size:13px;color:#98a2b3;text-decoration:none}
+    #splash a:hover{text-decoration:underline}
+    @keyframes fadeIn{to{opacity:1}}
+  </style>
+</head>
+<body>
+  <div id="splash">
+    <img src="/splash.png" alt="VERDIS Platform">
+    <a id="go" href="https://journal-c3hnlsxruq-du.a.run.app/">업무일지로 이동 중… 이동하지 않으면 여기를 누르세요</a>
+  </div>
+  <script>
+    // verdis.kr/journal/#/review 처럼 들어오면 같은 화면으로
+    var APP = "https://journal-c3hnlsxruq-du.a.run.app/" + location.hash;
+    document.getElementById("go").href = APP;
+    setTimeout(function () { location.replace(APP); }, 700);
+  </script>
+  <noscript><meta http-equiv="refresh" content="0; url=https://journal-c3hnlsxruq-du.a.run.app/"></noscript>
+</body>
+</html>
