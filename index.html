@@ -31,6 +31,28 @@
       border:none;
       z-index:9999;
     }
+
+    #fallback{
+      display:none;
+      position:fixed;
+      left:0;right:0;bottom:10%;
+      padding:0 24px;
+      text-align:center;
+      color:#475569;
+      font-size:14px;
+      z-index:2;
+    }
+    #fallback a{
+      display:inline-block;
+      margin-top:12px;
+      padding:14px 28px;
+      border-radius:10px;
+      background:#2563eb;
+      color:#fff;
+      font-size:16px;
+      font-weight:700;
+      text-decoration:none;
+    }
   </style>
 </head>
 <body>
@@ -38,6 +60,12 @@
   <!-- 스플래시 (페이드인) -->
   <div id="splash">
     <img src="/splash.png" alt="VERDIS Platform">
+  </div>
+
+  <!-- iframe이 뜨지 않을 때 직접 접속 (Safari 쿠키 차단 등) -->
+  <div id="fallback">
+    <div>화면이 열리지 않으면 아래 버튼을 눌러 주세요.</div>
+    <a id="fallback-link">포털 바로 열기</a>
   </div>
 
   <!-- iframe -->
@@ -50,7 +78,12 @@
 
   <script>
     var frame = document.getElementById('app-frame');
+    var fallback = document.getElementById('fallback');
+    document.getElementById('fallback-link').href = frame.src;
+    var fallbackTimer = setTimeout(function(){ fallback.style.display = 'block'; }, 8000);
     frame.addEventListener('load', function(){
+      clearTimeout(fallbackTimer);
+      fallback.style.display = 'none';
       var splash = document.getElementById('splash');
       splash.style.opacity = '0';
       setTimeout(function(){ splash.style.display = 'none'; }, 400);
